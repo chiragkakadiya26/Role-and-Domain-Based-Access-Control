@@ -57,15 +57,6 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
                 SecurityContextHolder.getContext().setAuthentication(usernamePasswordAuthenticationToken);
             }
         }
-
-        String origin = request.getHeader("Origin");
-        if (request.getRequestURI().startsWith("api/admin/**") &&
-                (origin == null || !origin.contains("admin.myapp.com"))) {
-            response.sendError(HttpServletResponse.SC_FORBIDDEN, "Domain not allowed");
-            return;
-        }
-
         filterChain.doFilter(request, response);
-
     }
 }
